@@ -1,0 +1,25 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "assets/fonts/OpenSans-Italic-VariableFont_wdth,wght.ttf",
+      "sha1": "c9bbed35fd86891c986d21c9bc3d258a5a260218"
+    },
+    {
+      "path": "assets/fonts/SourceSansPro-Black.ttf",
+      "sha1": "9f5e9f9165668260c574dcd07db63d6b90b98824"
+    },
+    {
+      "path": "assets/fonts/SourceSansPro-BlackItalic.ttf",
+      "sha1": "13cd3240c1ac5b97e2d4a4119600b3c36b868045"
+    },
+    {
+      "path": "assets/fonts/SourceSansPro-Italic.ttf",
+      "sha1": "1c774bad0dad64ee30d7f2e71e89891870a2d304"
+    },
+    {
+      "path": "assets/fonts/SourceSansPro-LightItalic.ttf",
+      "sha1": "c27caccb61ee5253eb83cb46ad5f3ebb4703d6a2"
+    }
+  ]
+}
