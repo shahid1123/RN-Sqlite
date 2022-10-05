@@ -17,12 +17,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import Home from './screen/Home';
 import Detail from './screen/Detail';
 import Login from './screen/Login';
+import { Provider} from 'react-redux';
+import { Store } from './redux/store';
 
 const Drawer = createDrawerNavigator();
 const Stack = createStackNavigator();
 
 function App() {
   return (
+    <Provider store={Store}>
     <NavigationContainer>
       <Stack.Navigator
         initialRouteName="Login"
@@ -47,6 +50,7 @@ function App() {
         <Stack.Screen name="Home" component={Home} />
       </Stack.Navigator>
     </NavigationContainer>
+    </Provider>
   );
 }
 

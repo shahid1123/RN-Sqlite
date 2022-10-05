@@ -4,6 +4,8 @@ import GlobalStyle from '../utils/GlobalStyle';
 import {AsyncStorage} from '@react-native-async-storage/async-storage';
 import CustomButton from '../utils/CustomButton';
 import SQLite from 'react-native-sqlite-storage';
+import {useSelector, useDispatch} from 'react-redux';
+import {setName, setAge} from '../redux/action';
 
 const db = SQLite.openDatabase(
   {
@@ -15,8 +17,14 @@ const db = SQLite.openDatabase(
 );
 
 export default function HomeScreen({navigation}) {
-  const [name, setName] = useState('');
-  const [age,setAge] = useState('');
+
+  const {name,age} = useSelector(state=>state.userReducer);
+  const dispatch = useDispatch();
+
+
+
+  // const [name, setName] = useState('');
+  // const [age,setAge] = useState('');
 
   useEffect(() => {
     retriveData();
@@ -34,8 +42,8 @@ export default function HomeScreen({navigation}) {
                     if (len > 0) {
                         var userName = results.rows.item(0).Name;
                         var userAge = results.rows.item(0).Age;
-                        setName(userName);
-                        setAge(userAge);
+                        dispatch( setName(userName));
+                       dispatch( setAge(userAge));
                     }
                 }
             )
@@ -48,6 +56,7 @@ export default function HomeScreen({navigation}) {
   return (
     <View style={styles.body}>
       <Text style={GlobalStyle.CustomFonts}>Welcome {name} </Text>
+      <Text style={GlobalStyle.CustomFonts}>Welcome {age} </Text>
       <CustomButton
         title="Update"
         // onPressFunction{}
