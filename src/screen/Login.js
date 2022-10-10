@@ -76,8 +76,9 @@ export default function login(navigation) {
           );
         });
         navigation.navigate('Home');
+        console.log('Data Inserted Successfully')
       } catch (error) {
-        console.log(error, 'ouneeb inside store data');
+        console.log(error, 'cannot store Data in SQLite');
       }
     }
   };

@@ -5,62 +5,72 @@ import {AsyncStorage} from '@react-native-async-storage/async-storage';
 import CustomButton from '../utils/CustomButton';
 import SQLite from 'react-native-sqlite-storage';
 import {useSelector, useDispatch} from 'react-redux';
-import {setName, setAge} from '../redux/action';
+import {setName, setAge, get_cities} from '../redux/action';
+import {FlatList} from 'react-native-gesture-handler';
 
 const db = SQLite.openDatabase(
   {
-      name: 'MainDB',
-      location: 'default',
+    name: 'MainDB',
+    location: 'default',
   },
-  () => { },
-  error => { console.log(error,'shahid') }
+  () => {},
+  error => {
+    console.log(error, 'shahid');
+  },
 );
 
 export default function HomeScreen({navigation}) {
-
-  const {name,age} = useSelector(state=>state.userReducer);
+  const {name, age, cities} = useSelector(state => state.userReducer);
   const dispatch = useDispatch();
-
-
 
   // const [name, setName] = useState('');
   // const [age,setAge] = useState('');
 
   useEffect(() => {
     retriveData();
+    dispatch(get_cities());
   }, []);
 
   const retriveData = () => {
     try {
-       
-        db.transaction((tx) => {
-            tx.executeSql(
-                "SELECT Name, Age FROM Users",
-                [],
-                (tx, results) => {
-                    var len = results.rows.length;
-                    if (len > 0) {
-                        var userName = results.rows.item(0).Name;
-                        var userAge = results.rows.item(0).Age;
-                        dispatch( setName(userName));
-                       dispatch( setAge(userAge));
-                    }
-                }
-            )
-        })
+      db.transaction(tx => {
+        tx.executeSql('SELECT Name, Age FROM Users', [], (tx, results) => {
+          var len = results.rows.length;
+          if (len > 0) {
+            var userName = results.rows.item(0).Name;
+            var userAge = results.rows.item(0).Age;
+            dispatch(setName(userName));
+            dispatch(setAge(userAge));
+          }
+        });
+      });
     } catch (error) {
-        console.log(error);
+      console.log(error);
     }
-}
+  };
 
   return (
     <View style={styles.body}>
-      <Text style={GlobalStyle.CustomFonts}>Welcome {name} </Text>
-      <Text style={GlobalStyle.CustomFonts}>Welcome {age} </Text>
-      <CustomButton
-        title="Update"
-        // onPressFunction{}
+      <Text style={GlobalStyle.CustomFonts}> Data From API </Text>
+
+      <FlatList
+        data={cities}
+        renderItem={({item}) => (
+          <View style={styles.itemlist}>
+            <Text style={GlobalStyle.CustomFonts}>{item.country}</Text>
+            <Text style={GlobalStyle.CustomFontsSubtitle}>{item.city}</Text>
+          </View>
+        )}
+        keyExtractor={(item, index) => index.toString()}
       />
+
+
+      {/* <Text style={GlobalStyle.CustomFonts}>Welcome {age} </Text> */}
+
+      {/* <CustomButton
+        title="Update"
+        onPressFunction{}
+      /> */}
     </View>
   );
 }
@@ -69,6 +79,16 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  itemlist: {
+    backgroundColor: '#ffffff',
+    borderWidth: 2,
+    borderColor: '#cccccc',
+    borderRadius: 5,
+    margin: 7,
+    width: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   text: {
     margin: 10,

@@ -10,6 +10,13 @@ export default StyleSheet.create({
     textAlign: 'center',
     color: '#00ff00',
   },
+  CustomFontsSubtitle:{
+    fontSize: 20,
+        margin: 10,
+        fontFamily:'SourceSansPro-BlackItalic'
+        
+
+  },
   ButtonText: {
     fontFamily: 'JetBrainsMono-VariableFont_wght',
     fontSize: 30,
