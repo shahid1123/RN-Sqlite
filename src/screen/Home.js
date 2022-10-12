@@ -6,7 +6,7 @@ import CustomButton from '../utils/CustomButton';
 import SQLite from 'react-native-sqlite-storage';
 import {useSelector, useDispatch} from 'react-redux';
 import {setName, setAge, get_cities} from '../redux/action';
-import {FlatList} from 'react-native-gesture-handler';
+import {FlatList, TouchableOpacity} from 'react-native-gesture-handler';
 
 const db = SQLite.openDatabase(
   {
@@ -56,10 +56,12 @@ export default function HomeScreen({navigation}) {
       <FlatList
         data={cities}
         renderItem={({item}) => (
+          <TouchableOpacity>
           <View style={styles.itemlist}>
             <Text style={GlobalStyle.CustomFonts}>{item.country}</Text>
             <Text style={GlobalStyle.CustomFontsSubtitle}>{item.city}</Text>
           </View>
+          </TouchableOpacity>
         )}
         keyExtractor={(item, index) => index.toString()}
       />
